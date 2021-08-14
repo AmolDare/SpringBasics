@@ -1,0 +1,52 @@
+Spring version 4 or higher supports Java Bean validation API
+Hibernate validator implements Java bean validation API
+
+Validation features-
+ required
+ validate lenght
+ validate numbers
+ validate with regular expressions
+ custom validations
+ 
+ Annotation         Description
+ @NotNull.          checks that annotated value is not null
+ @Min               must be a number >= value
+ @Max.              Must be a number <=value
+ @Size              must match the given size
+ @Pattern.          must match the RE pattern
+ @Future/@Past.     date must be in future or past
+ 
+ Development process
+ 1.Add validation rule in model class 
+  e.g.@NotNull(message="is required")
+      @Size(min=1,message="is require")
+      private String lastName;
+ 2.to Display error message on HTML form
+ e.g
+ Last Name:<form:input path="lastName"/>
+      <form:errors path="LastName" cssClass="error"/>
+ 3.Perform validation in Controller class
+ e.g add @Valid annotation in controller class
+ 
+ to check if there are any errors add attribute BindingResult --result of validation is placed in BindingResult
+ and use method hasErrors() 
+ the BindingResult parameter must appear immediatly after the model attribute
+  
+Validation doesn't work with primitives..use Integer instead of int
+
+**Create Custom Validation**
+
+Step1.Use following syntax to define custom annotation
+
+@Constraint(validatedBy=CourseCodeConstraintValidator.class)
+@Target(ElementType.METHOD,ElementType.FIELD)
+@Retntion(RetentionPlicy.Runtime)
+public @interface CourseCode{
+public String value() default "LUV";
+public String message() default "must start with LUV"
+}
+
+Step2 define CourseCodeConstraintValidator class
+
+public class CourseCodeConstraintValidator implements ConstraintValidator<CourseCode,String>{
+}
