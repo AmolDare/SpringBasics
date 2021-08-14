@@ -1,0 +1,49 @@
+**Configuring Spring MVC**
+Step1.Add congif to WEB-INF/web.xml
+  1.configure dispatcher servlet
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfiguration</param-name>
+			<param-value>/WEB-INF/applicationContext.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+  
+  2.set url mappings for dispatcher servlet
+      <servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+Step2. Add configurations to WEB-INF/spring-mvc-demo-servlet.xml
+  1.add support for component scanning
+    e.g.    <context:component-scan base-package="com.amol" />
+
+  2. add support for conversion,formatting and validation
+    e.g.    <mvc:annotation-driven />
+
+  3. configure spring mvc resolver
+   <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/views/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+    
+
+**Development Process controller and view**
+1.Create controller class annotet it with @Controller (it inherits from @Component ..supports scanning)
+2.Define controller methods- Annotate it with @RequestMapping. Request mapping can be added at controller level as well
+3.Add request mapping to controller methods
+4.Return view name
+5.Display view page
+
+
+To access static files(css,java script) add below mapping in spring config file
+<mvc:resources mapping="/resources/**" location="/resources/"></mvc:resources>
+
+Reading Form data-
+@RequestParam("studentName") String theName---> spring will read param from request:studentname and will bind it to variable theName
+ 
