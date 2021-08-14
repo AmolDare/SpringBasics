@@ -1,0 +1,53 @@
+What is libraries and framework?
+Library : It is a set of  specific and well-defined operations.
+A library provides a set of helper functions/objects/modules which your application code calls for specific functionality
+code reuse is the main purpose.
+
+Examples : Network protocols, compression, image manipulation, string utilities, regular expression evaluation, math etc
+
+Framework: It defines a skeleton where the application defines its own features to fill out the skeleton.
+Examples of frameworks: Web application system, Plug-in manager, GUI system. 
+The framework only defines the concept but an application further defines the functionality that is useful for end-users.
+Inversion of control: When we call a method from a library, we are in control. But in framework, the control is inverted i.e. the framework calls us.
+
+
+What spring framework offers?
+
+1.Application context and dependency Injection.
+Two main functions of Spring container
+-create and manage objects(Inversion of Control)
+-Inject Object Dependencies(Dependency Injection)--injecting the helper object in your class for doing some functionality
+    --most common types of Injections constructor Injection and setter injection
+2.JDBC-spring takes care of connectivity,querying,transaction management and more
+3.Spring MVC-ability to easily build web applications
+Basically spring is a ecosystem in which you have different projects e.g Spring security ,spring ws etc. 
+
+
+3 ways of configuring spring container
+-xml config
+-java annotations
+-java source code
+
+Spring dev technique
+step1-configure youre beans
+ --spring bean is simply a java object,created by spring container
+step2-create spring container
+--generally known as ApplicationContext
+--specialized Implementations are-
+    ClassPathXmlApplicationContext
+    AnnotaionConfigApplicationContext
+    etc
+step3-retrieve bean from Spring container
+
+
+Injecting literal values in spring app-
+Step1.Create setter methods in your class
+Step2.Configure values in beans in config files e.g.
+		<property name="team" value="MI"></property>
+
+Injecting values from properties file
+Step1.Create prop file
+Step2.Load prop file in spring config---e.g. 		<context:property-placeholder location="classpath:sport.properties"/>
+
+Step3.Ref values from prop file --		<property name="team" value="${foo.team}"></property>
+
