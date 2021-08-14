@@ -1,0 +1,12 @@
+DEV PROCESS
+ 1.Create java class and annotate with @Configuration
+  -Indicates that a class declares one or more @Bean methods and may be processed by the Spring container 
+  to generate bean definitions and service requests for those beans at runtime,
+ 2.Add component scanning support by @ComponentScan(optional step) 
+   -Either basePackageClasses() or basePackages() (or its alias value()) may be specified to define specific packages to scan.
+   If specific packages are not defined, scanning will occur from the package of the class that declares this annotation.
+  Note that the <context:component-scan> element has an annotation-config attribute; however, this annotation does not.
+  3.Add @PropertySource("property file name") to inject properties 
+
+ 4.Read spring config class
+ 5.Retrieve bean
