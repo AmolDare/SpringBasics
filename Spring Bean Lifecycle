@@ -1,0 +1,37 @@
+Bean scope refers to-
+ -How long does the bean live
+ -how many instances are created
+ -how is the bean shared
+ 
+Singleton-by defualt 
+ -container creates only one instance
+ -cached in memory
+ -all request for the bean will return shared ref to the same bean
+ 
+Prototype-new instance for each req
+request-scoped to http web request.Only for web apps
+session-scoped to http web session.Only for web apps
+golbal-session-scoped to web session.Only for web apps
+ 
+ Bean Life cycle
+ 1.Container started
+ 2.Bean Instantiated
+ 3.Dependency injected
+ 4.Some internal Spring processing
+ 5.your own custom init method (setting up handles to db,socket,file etc)
+   --method can have any access modifier
+   --can have any return tpe but you won't be able to capture returned value so use void
+   --can have any name
+   --should be no arg
+   -- init-method tag in config file
+ 6.Bean is ready for use
+ 7.container is shutdown
+ 8.Your custom destroy method (clean up handles to db,socket,file etc)
+   --method can have any access modifier
+   --can have any return tpe but you won't be able to capture returned value so use void
+   --can have any name
+   --should be no arg
+   -- destroy-method tag in config file
+
+ 9.stop
+ 
