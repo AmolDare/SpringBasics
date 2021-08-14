@@ -6,7 +6,46 @@ DEV PROCESS
    -Either basePackageClasses() or basePackages() (or its alias value()) may be specified to define specific packages to scan.
    If specific packages are not defined, scanning will occur from the package of the class that declares this annotation.
   Note that the <context:component-scan> element has an annotation-config attribute; however, this annotation does not.
-  3.Add @PropertySource("property file name") to inject properties 
-
+  
+ 3.Add @PropertySource("property file name") to inject properties  e.g @PropertySource("classpath:sport.properties")
  4.Read spring config class
  5.Retrieve bean
+ 
+ **Define Spring Beans with Java Code**
+ in the class annotated with @Configuration
+  step1.Define methods to expose bean
+    e.g.
+    	@Bean
+	public FortuneService happyFortuneService() {--->bean will be registerd with this method name
+		return new HappyFortuneService();
+	 
+  step2.Inject Bean dependencies
+    @Bean
+	public Coach swimCoach() {----->bean will be registerd with this method name
+		SwimCoach mySwimCoach=new SwimCoach(happyFortuneService()); ----Injecting dependencies
+		return mySwimCoach;
+	}
+ -methods will be executed only once and bean will be registerd in application context
+ 
+ **Real time use case of @Bean
+ -You can use @Bean to to make an existing third party class available to your Spring Framework application context
+ 
+ *Diff between @Bean and @Component
+
+1.Auto detection
+ @Bean	It is used to explicitly declare a single bean, rather than letting Spring do it automatically. 
+ @Component
+If any class is annotated with @Component it will be automatically detect by using classpath scan.
+2.Spring Container
+ @Bean	Bean can be created even class is outside the spring container
+ @Component We can’t create bean if class is outside spring container
+3.Class/Method  Level Annotation
+ @Bean	It is a method level annotation
+ @Component It is a class level annotation
+4.@Configuration
+ @Bean	It works only when class is also annotated with @Configuration
+ @Component It works without@Configuration annotation
+5.Use Case
+ @Bean	We should use @bean, if you want specific implementation based on dynamic condition.
+ @Component We can’t write specific implementation based on dynamic condition
+ 
