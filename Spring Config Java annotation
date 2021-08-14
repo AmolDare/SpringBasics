@@ -1,0 +1,61 @@
+Java Annotations-
+  -Speacial labels markers
+  -processed compile or run time
+  
+Why use annotations?
+  -XML config can be verbose
+  -minimize xml config
+  
+Dev Process-
+1.Enable component scanning in spring config file---e.g 
+  	<context:component-scan base-package="com.amol"></context:component-scan>
+
+2.Add @Component annotation to your java class
+3.@Autowired for DI,optional for constructor injection since spring 4.3
+3.Retrieve bean from Container
+
+If you have ambiguity while injecting dependency you will get following exception
+Exception in thread "main" org.springframework.beans.factory.UnsatisfiedDependencyException:
+Error creating bean with name 'cricketCoach' defined in file 
+[/Users/amoldarekar/Desktop/MicroServices/SpringAnnotationConfig/target/classes/com/amol/CricketCoach.class]:
+Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.NoUniqueBeanDefinitionException:
+No qualifying bean of type 'com.amol.FortuneService' available: expected single matching bean but found 2: happyFortuneService,sadFortuneService
+
+Solve this error by @Qualifier annotaion-
+e.g.
+  public CricketCoach(@Qualifier("happyFortuneService") FortuneService fortuneService) {
+		super();
+		this.fortuneService = fortuneService;
+	}
+  
+ Note: If a bean has @Autowired without any @Qualifier, and multiple beans of the type exist, 
+  the candidate bean marked @Primary will be chosen, i.e. it is the default selection when no other information is available, i.e. when @Qualifier is missing.
+
+-We can inject dependency by using @autowired on any method, it need not be constructor
+
+Which injection type should we use?
+-use any style and stay consistent in your project
+
+Default bean name used while creating annotated bean is make first letter of class in lower case e.g HappyFortuneService--->happyFortuneService
+exception to this rule is if both the first and second character of the bean are upper case then bean is not converted 
+you can specify name like @Component("foo")
+
+** Injecting properties from properties file using Annotation
+Step1. Load prop file in your config file
+  e.g.    <context:property-placeholder location="classpath:sport.properties"/>
+step2.Use @Value("${property}") annotation on attributes
+
+
+**Spring Bean SCopes with annotations***
+-use @Scope("prototype")
+-for bean lifecycle methods use
+use @PostConstruct ---for init method
+    @PreDestroy--destroy method
+    
+*Destroy lifecycle in prototype scope is not called as as container instantiates configures object and hands it over to client with no further record of it
+
+*Custome coding for destroying prototype scoped beans-
+1.Create custom bean Processor
+2.The prototype bean scoped beans must implement DisposableBean interface which has destroy method
+search on net for complete process
+2
